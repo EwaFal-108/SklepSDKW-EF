@@ -1,4 +1,10 @@
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Rejestracja kontekstu bazy danych
+builder.Services.AddDbContext<SklepSDKW_EF.DAL.SklepContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("localDB")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
