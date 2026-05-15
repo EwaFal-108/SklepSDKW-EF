@@ -9,20 +9,20 @@ namespace SklepSDKW_EF.Modele
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Nie podano tytułu")]
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
-        public string Director { get; set; }
+        public string? Director { get; set; }
 
         [StringLength(500)]
-        public string Desc { get; set; }
+        public string? Desc { get; set; }
 
         public decimal? Price { get; set; }
 
-        // Klucz obcy łączący Film z Kategorią
+        // Klucz obcy
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
 
-        // Właściwość nawigacyjna
-        public Category Category { get; set; }
+        // Właściwość nawigacyjna - dodano ? i virtual
+        public virtual Category? Category { get; set; }
     }
 }
