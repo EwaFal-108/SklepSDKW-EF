@@ -1,0 +1,31 @@
+﻿@model SklepSDKW_EF.Modele.Film
+
+@{
+    ViewData["Title"] = "Szczegóły filmu";
+}
+
+<h1>Szczegóły</h1>
+
+<div>
+    <h4>Film: @Model.Title</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Tytuł</dt>
+        <dd class="col-sm-10">@Model.Title</dd>
+
+        <dt class="col-sm-2">Reżyser</dt>
+        <dd class="col-sm-10">@Model.Director</dd>
+
+        <dt class="col-sm-2">Cena</dt>
+        <dd class="col-sm-10">@Model.Price?.ToString("C")</dd>
+
+        <dt class="col-sm-2">Kategoria</dt>
+        <dd class="col-sm-10">@Model.Category?.Name</dd>
+
+        <dt class="col-sm-2">Opis</dt>
+        <dd class="col-sm-10">@Model.Desc</dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Powrót do listy</a>
+</div>
