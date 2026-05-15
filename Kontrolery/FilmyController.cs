@@ -91,5 +91,32 @@ namespace SklepSDKW_EF.Kontrolery
             ViewBag.Categories = _db.Kategorie.ToList();
             return View(film);
         }
+        // GET: Filmy/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var film = await _db.Filmy
+                .Include(f => f.Category)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (film == null) return NotFound();
+
+            return View(film);
+        }
+
+        // POST: Filmy/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var film = await _db.Filmy.FindAsync(id);
+            if (film != null)
+            {
+                _db.Filmy.Remove(film);
+                await _db.SaveChangesAsync();
+            }
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
