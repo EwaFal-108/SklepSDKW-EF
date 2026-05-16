@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +10,15 @@ builder.Services.AddDbContext<SklepSDKW_EF.DAL.SklepContext>(options =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Konfiguracja polskiej kultury jêzykowej dla formularzy i walidacji
+var supportedCultures = new[] { new CultureInfo("pl-PL") };
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    options.DefaultRequestCulture = new RequestCulture("pl-PL");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+});
 
 var app = builder.Build();
 
@@ -21,6 +32,9 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+// W³¹czenie obs³ugi polskiej lokalizacji w potoku ¿¹dañ HTTP
+app.UseRequestLocalization();
 
 app.UseRouting();
 
