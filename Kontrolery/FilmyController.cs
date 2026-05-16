@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering; // Potrzebne do SelectList
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SklepSDKW_EF.DAL;
 using SklepSDKW_EF.Modele;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SklepSDKW_EF.Kontrolery
 {
@@ -16,36 +18,68 @@ namespace SklepSDKW_EF.Kontrolery
         }
 
         // 1. LISTA
-        public IActionResult Index()
+        public IActionResult Index(string categoryName, string searchPhrase)
         {
-            // Używamy .Include(f => f.Category), bo tak nazywa się właściwość w modelu Film
-            var filmy = _db.Filmy.Include(f => f.Category).ToList();
+            var filmyQuery = _db.Filmy.Include(f => f.Category).AsQueryable();
+
+            if (!string.IsNullOrEmpty(categoryName))
+            {
+                filmyQuery = filmyQuery.Where(f => f.Category.Name.ToUpper() == categoryName.ToUpper());
+            }
+
+            if (!string.IsNullOrEmpty(searchPhrase))
+            {
+                filmyQuery = filmyQuery.Where(f => f.Title.Contains(searchPhrase) || f.Director.Contains(searchPhrase));
+            }
+
+            var filmy = filmyQuery.ToList();
             return View(filmy);
         }
 
-        // 2. SZCZEGÓŁY
-        public IActionResult Details(int? id)
+        // 2. FILMY Z KATEGORII 
+        public IActionResult CategoryFilms(string categoryName)
         {
-            if (id == null) return NotFound();
+            if (string.IsNullOrEmpty(categoryName)) return NotFound();
+
+            // Zamiast szukać przez kategorię i jej kolekcję, wyciągamy filmy bezpośrednio 
+            // z tabeli Filmy, filtrując po nazwie powiązanej kategorii.
+            var filmyzKategorii = _db.Filmy
+                .Include(f => f.Category)
+                .Where(f => f.Category.Name.ToUpper() == categoryName.ToUpper())
+                .ToList();
+
+            if (!filmyzKategorii.Any())
+            {
+                // Jeśli nie ma filmów, upewniamy się, czy kategoria w ogóle istnieje
+                var kategoriaIstnieje = _db.Kategorie.Any(c => c.Name.ToUpper() == categoryName.ToUpper());
+                if (!kategoriaIstnieje) return NotFound();
+            }
+
+            return View(filmyzKategorii);
+        }
+
+        // 3. SZCZEGÓŁY
+        public IActionResult Details(int? filmId)
+        {
+            if (filmId == null) return NotFound();
 
             var film = _db.Filmy
                 .Include(f => f.Category)
-                .FirstOrDefault(m => m.Id == id);
+                .FirstOrDefault(m => m.Id == filmId);
 
             if (film == null) return NotFound();
 
             return View(film);
         }
 
-        // 3. DODAWANIE - Formularz (GET)
+        // 4. DODAWANIE - Formularz (GET)
         public IActionResult Create()
         {
-            // ZMIANA: _db.Kategorie zamiast _db.Category
             ViewBag.Categories = _db.Kategorie.ToList();
             return View();
         }
 
-        // 4. DODAWANIE - Zapis (POST)
+        // 5. DODAWANIE - Zapis (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Film film)
@@ -56,12 +90,11 @@ namespace SklepSDKW_EF.Kontrolery
                 await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            // ZMIANA: _db.Kategorie zamiast _db.Category
             ViewBag.Categories = _db.Kategorie.ToList();
             return View(film);
         }
 
-        // 5. EDYCJA - Formularz (GET)
+        // 6. EDYCJA - Formularz (GET)
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
@@ -69,12 +102,11 @@ namespace SklepSDKW_EF.Kontrolery
             var film = await _db.Filmy.FindAsync(id);
             if (film == null) return NotFound();
 
-            // ZMIANA: _db.Kategorie zamiast _db.Category
             ViewBag.Categories = _db.Kategorie.ToList();
             return View(film);
         }
 
-        // 6. EDYCJA - Zapis (POST)
+        // 7. EDYCJA - Zapis (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Film film)
@@ -87,11 +119,11 @@ namespace SklepSDKW_EF.Kontrolery
                 await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            // ZMIANA: _db.Kategorie zamiast _db.Category
             ViewBag.Categories = _db.Kategorie.ToList();
             return View(film);
         }
-        // GET: Filmy/Delete/5
+
+        // 8. USUWANIE - Formularz (GET)
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
@@ -105,7 +137,7 @@ namespace SklepSDKW_EF.Kontrolery
             return View(film);
         }
 
-        // POST: Filmy/Delete/5
+        // 9. USUWANIE - Zapis (POST)
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

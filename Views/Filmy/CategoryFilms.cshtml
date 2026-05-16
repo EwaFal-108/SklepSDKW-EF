@@ -1,0 +1,60 @@
+﻿@model IEnumerable<SklepSDKW_EF.Modele.Film>
+
+@{
+    ViewData["Title"] = "Filmy z kategorii";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-8">
+        @if (Model != null && Model.Any())
+        {
+            <table class="table table-hover mt-3">
+                <thead>
+                    <tr>
+                        <th>Tytuł filmu</th>
+                        <th>Reżyser</th>
+                        <th>Cena</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var film in Model)
+                    {
+                        <tr>
+                            <td>@film.Title</td>
+                            <td>@film.Director</td>
+                            <td>@film.Price zł</td>
+
+                            <td>
+                                <a href="@Url.Action("Details", "Filmy", new { filmId = film.Id })">🔎</a>
+                            </td>
+
+                            <td>
+                                <a href="@Url.Action("AddToCart", "Cart", new { id = film.Id })">🛒</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-info mt-3">
+                Brak filmów w tej kategorii.
+            </div>
+        }
+    </div>
+
+    <div class="col-sm-4">
+        @if (Model != null && Model.Any())
+        {
+            @await Component.InvokeAsync("SideMenu", new { categoryId = Model.First().CategoryId })
+        }
+        else
+        {
+            <p class="text-muted mt-3">Wybierz inną kategorię z menu głównego.</p>
+        }
+    </div>
+</div>

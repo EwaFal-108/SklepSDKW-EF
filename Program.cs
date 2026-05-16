@@ -11,6 +11,15 @@ builder.Services.AddDbContext<SklepSDKW_EF.DAL.SklepContext>(options =>
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// --- POPRAWIONA KONFIGURACJA SESJI W US£UGACH CONTENERA ---
+builder.Services.AddDistributedMemoryCache(); // Rejestracja pamiêci podrêcznej dla sesji
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Czas wygaœniêcia sesji koszyka (30 minut)
+    options.Cookie.HttpOnly = true;                 // Poprawiona œcie¿ka dostêpu do w³aœciwoœci HttpOnly
+    options.Cookie.IsEssential = true;              // Poprawiona œcie¿ka dostêpu do w³aœciwoœci IsEssential
+});
+
 // Konfiguracja polskiej kultury jêzykowej dla formularzy i walidacji
 var supportedCultures = new[] { new CultureInfo("pl-PL") };
 builder.Services.Configure<RequestLocalizationOptions>(options =>
@@ -39,6 +48,9 @@ app.UseRequestLocalization();
 app.UseRouting();
 
 app.UseAuthorization();
+
+// --- W£¥CZENIE SESJI W POTOKU ¯¥DAÑ HTTP ---
+app.UseSession(); // Musi byæ wywo³ane po UseRouting() i przed MapControllerRoute()
 
 app.MapControllerRoute(
     name: "default",

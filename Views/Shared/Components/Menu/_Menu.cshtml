@@ -1,0 +1,40 @@
+﻿@model IEnumerable<SklepSDKW_EF.Modele.Category>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container-fluid">
+        <ul class="navbar-nav">
+            @foreach (var category in Model)
+            {
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("CategoryFilms", "Filmy", new { categoryName = category.Name })">
+                        @category.Name
+                    </a>
+                </li>
+            }
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Index", "Filmy")"> Wszystkie filmy </a>
+            </li>
+        </ul>
+
+        @using (Html.BeginForm("Search", "Filmy", FormMethod.Get))
+        {
+            <div class="d-flex align-items-center">
+                @Html.TextBox("text", "", new { @class = "form-control form-control-sm me-2 search-bar", placeholder = "Szukaj filmu..." })
+                <button type="submit" class="btn btn-sm btn-outline-primary">🔎</button>
+            </div>
+        }
+
+        <ul class="navbar-nav ms-auto me-3 d-flex align-items-center">
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Register", "Account")"> Zarejestruj </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"> Zaloguj </a>
+            </li>
+        </ul>
+
+        <a class="nav-link btn btn-outline-success text-white px-3 menu-link mb-0" href="@Url.Action("Index", "Cart")">
+            🛒 (<span id="cartQuantity">@ViewBag.CartQuantity</span>)
+        </a>
+    </div>
+</nav>

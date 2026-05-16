@@ -1,8 +1,50 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<SklepSDKW_EF.Modele.Film>
+
+@{
+    ViewData["Title"] = "Strona główna";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-3">
+    <h2 class="mb-4 text-center">Polecane filmy w naszej wypożyczalni</h2>
+
+    <div class="row">
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var film in Model)
+            {
+                <div class="col-sm-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="fakeimg text-center d-flex align-items-center justify-content-center bg-secondary text-white">
+                            <span class="fs-5 fw-bold">@film.Title</span>
+                        </div>
+
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <div>
+                                <h5 class="card-title fw-bold">@film.Title</h5>
+                                <p class="card-text text-muted mb-1">Reżyser: @film.Director</p>
+                                <p class="card-text text-danger fw-bold">Cena: @film.Price zł</p>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top">
+                                <a href="@Url.Action("Details", "Filmy", new { filmId = film.Id })" class="btn btn-sm btn-outline-dark px-3" title="Szczegóły">
+                                    🔎 Zobacz
+                                </a>
+
+                                <a href="@Url.Action("AddToCart", "Cart", new { id = film.Id })" class="btn btn-sm btn-success px-3" title="Do koszyka">
+                                    🛒 Do koszyka
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12 text-center">
+                <p class="text-muted fs-5">Baza danych filmów jest obecnie pusta.</p>
+            </div>
+        }
+    </div>
 </div>
