@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SklepSDKW_EF.Modele;
+using SklepSDKW_EF.Models;
 
 namespace SklepSDKW_EF.DAL
 {

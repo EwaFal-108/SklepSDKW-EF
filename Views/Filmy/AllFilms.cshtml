@@ -1,0 +1,15 @@
+﻿@model IEnumerable<SklepSDKW_EF.Models.Film>
+@using SklepSDKW_EF.Models
+
+<div class="container mt-4">
+    <div class="row g-3">
+        @foreach (var film in Model)
+        {
+            <div class="col-6 col-md-4 col-lg-3">
+                <a href="@Url.Action("Details", "Films", new { filmId = film.Id })">
+                    <img src="~/content/grafiki/@film.Poster" class="img-fluid rounded" alt="@film.Title">
+                </a>
+            </div>
+        }
+    </div>
+</div>

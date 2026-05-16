@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace SklepSDKW_EF.Modele
+namespace SklepSDKW_EF.Models
 {
     public class Category
     {

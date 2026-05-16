@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SklepSDKW_EF.DAL;
-using SklepSDKW_EF.Modele;
+using SklepSDKW_EF.Models;
 
 namespace SklepSDKW_EF.Infrastructure
 {

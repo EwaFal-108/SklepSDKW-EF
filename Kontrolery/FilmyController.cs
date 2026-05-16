@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SklepSDKW_EF.DAL;
-using SklepSDKW_EF.Modele;
+using SklepSDKW_EF.Models;
 using System.Linq;
 using System.Threading.Tasks;
 

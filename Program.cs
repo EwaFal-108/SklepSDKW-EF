@@ -4,8 +4,12 @@ using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Rejestracja kontekstu bazy danych
+// 1. Rejestracja pierwszego kontekstu bazy danych
 builder.Services.AddDbContext<SklepSDKW_EF.DAL.SklepContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("localDB")));
+
+// 2. TUTAJ DOPISUJEMY REJESTRACJÊ DRUGIEGO KONTEKSTU (DLA MENU)
+builder.Services.AddDbContext<SklepSDKW_EF.DAL.FilmsContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("localDB")));
 
 // Add services to the container.
@@ -55,5 +59,20 @@ app.UseSession(); // Musi byæ wywo³ane po UseRouting() i przed MapControllerRout
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+// --- AUTOMATYCZNA AKTUALIZACJA BAZY DANYCH PRZED STARTEM ---
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var sklepContext = services.GetRequiredService<SklepSDKW_EF.DAL.SklepContext>();
+        sklepContext.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        // Logowanie b³êdu w razie potrzeby
+    }
+}
 
 app.Run();

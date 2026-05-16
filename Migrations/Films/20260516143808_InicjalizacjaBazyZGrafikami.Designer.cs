@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SklepSDKW_EF.DAL;
 
 #nullable disable
 
-namespace SklepSDKW_EF.Migrations
+namespace SklepSDKW_EF.Migrations.Films
 {
-    [DbContext(typeof(SklepContext))]
-    partial class SklepContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(FilmsContext))]
+    [Migration("20260516143808_InicjalizacjaBazyZGrafikami")]
+    partial class InicjalizacjaBazyZGrafikami
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,7 +43,7 @@ namespace SklepSDKW_EF.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Kategorie");
+                    b.ToTable("Categories");
 
                     b.HasData(
                         new
@@ -115,7 +118,7 @@ namespace SklepSDKW_EF.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Filmy");
+                    b.ToTable("Films");
 
                     b.HasData(
                         new
@@ -124,6 +127,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 1,
                             Desc = "Historia rodziny nawiedzanej przez demoniczną obecność.",
                             Director = "James Wan",
+                            Poster = "g1.jpg",
                             Price = 9.99m,
                             Title = "The Conjuring"
                         },
@@ -133,6 +137,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 1,
                             Desc = "Psychologiczny horror o rodzinnej traumie i mrocznych tajemnicach.",
                             Director = "Ari Aster",
+                            Poster = "g2.webp",
                             Price = 10.49m,
                             Title = "Hereditary"
                         },
@@ -142,6 +147,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 1,
                             Desc = "Klasyczna opowieść o opętaniu i egzorcyzmach.",
                             Director = "William Friedkin",
+                            Poster = "g3.webp",
                             Price = 8.99m,
                             Title = "The Exorcist"
                         },
@@ -151,6 +157,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 1,
                             Desc = "Grupa dzieci stawia czoła przerażającemu klaunowi.",
                             Director = "Andy Muschietti",
+                            Poster = "g4.jpg",
                             Price = 11.99m,
                             Title = "It"
                         },
@@ -160,6 +167,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 1,
                             Desc = "Dziennikarka bada tajemniczą kasetę wideo przynoszącą śmierć.",
                             Director = "Gore Verbinski",
+                            Poster = "g5.jpg",
                             Price = 9.49m,
                             Title = "The Ring"
                         },
@@ -169,15 +177,17 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 1,
                             Desc = "Morderca atakujący swoje ofiary w snach.",
                             Director = "Wes Craven",
+                            Poster = "g6.jpg",
                             Price = 7.99m,
                             Title = "A Nightmare on Elm Street"
                         },
                         new
                         {
                             Id = 7,
-                            CategoryId = 1,
+                            CategoryId = 4,
                             Desc = "Izolacja w hotelu prowadzi do szaleństwa.",
                             Director = "Stanley Kubrick",
+                            Poster = "g7.webp",
                             Price = 10.99m,
                             Title = "The Shining"
                         },
@@ -187,6 +197,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 1,
                             Desc = "Rodzina walczy z bytami z innego wymiaru.",
                             Director = "James Wan",
+                            Poster = "g8.jpg",
                             Price = 9.79m,
                             Title = "Insidious"
                         },
@@ -196,6 +207,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 1,
                             Desc = "Matka i syn konfrontują się z mroczną istotą z książki.",
                             Director = "Jennifer Kent",
+                            Poster = "g9.jpg",
                             Price = 8.49m,
                             Title = "The Babadook"
                         },
@@ -205,6 +217,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 1,
                             Desc = "Psychopatyczny morderca zmusza ofiary do makabrycznych wyborów.",
                             Director = "James Wan",
+                            Poster = "g10.jpg",
                             Price = 9.29m,
                             Title = "Saw"
                         },
@@ -214,6 +227,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 2,
                             Desc = "Podróż przez kosmos w poszukiwaniu nowego domu dla ludzkości.",
                             Director = "Christopher Nolan",
+                            Poster = "g11.jpg",
                             Price = 12.99m,
                             Title = "Interstellar"
                         },
@@ -223,6 +237,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 2,
                             Desc = "Złodzieje wnikają w sny, by kraść tajemnice.",
                             Director = "Christopher Nolan",
+                            Poster = "g12.jpg",
                             Price = 11.99m,
                             Title = "Inception"
                         },
@@ -232,6 +247,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 2,
                             Desc = "Haker odkrywa prawdziwą naturę rzeczywistości.",
                             Director = "The Wachowskis",
+                            Poster = "g13.jpg",
                             Price = 10.99m,
                             Title = "The Matrix"
                         },
@@ -241,6 +257,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 2,
                             Desc = "Łowca androidów odkrywa sekret zagrażający światu.",
                             Director = "Denis Villeneuve",
+                            Poster = "g14.jpg",
                             Price = 12.49m,
                             Title = "Blade Runner 2049"
                         },
@@ -250,6 +267,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 2,
                             Desc = "Lingwistka próbuje porozumieć się z obcą cywilizacją.",
                             Director = "Denis Villeneuve",
+                            Poster = "g15.jpg",
                             Price = 10.49m,
                             Title = "Arrival"
                         },
@@ -259,6 +277,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 2,
                             Desc = "Walka o kontrolę nad pustynną planetą Arrakis.",
                             Director = "Denis Villeneuve",
+                            Poster = "g16.jpg",
                             Price = 13.99m,
                             Title = "Dune"
                         },
@@ -268,6 +287,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 2,
                             Desc = "Astronauci walczą o przetrwanie w przestrzeni kosmicznej.",
                             Director = "Alfonso Cuarón",
+                            Poster = "g17.webp",
                             Price = 9.99m,
                             Title = "Gravity"
                         },
@@ -277,6 +297,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 2,
                             Desc = "Eksperyment z zaawansowaną sztuczną inteligencją.",
                             Director = "Alex Garland",
+                            Poster = "g18.jpg",
                             Price = 10.29m,
                             Title = "Ex Machina"
                         },
@@ -286,6 +307,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 2,
                             Desc = "Astronauta próbuje przeżyć samotnie na Marsie.",
                             Director = "Ridley Scott",
+                            Poster = "g19.jpg",
                             Price = 11.49m,
                             Title = "The Martian"
                         },
@@ -295,6 +317,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 2,
                             Desc = "Podzielony świat przyszłości i walka o równość.",
                             Director = "Neill Blomkamp",
+                            Poster = "g20.jpg",
                             Price = 9.79m,
                             Title = "Elysium"
                         },
@@ -304,6 +327,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 3,
                             Desc = "Szalone poszukiwania zaginionego pana młodego w Las Vegas.",
                             Director = "Todd Phillips",
+                            Poster = "g21.jpg",
                             Price = 8.99m,
                             Title = "The Hangover"
                         },
@@ -313,6 +337,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 3,
                             Desc = "Dwóch nastolatków przeżywa ostatnią imprezę przed studiami.",
                             Director = "Greg Mottola",
+                            Poster = "g22.webp",
                             Price = 7.99m,
                             Title = "Superbad"
                         },
@@ -322,6 +347,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 3,
                             Desc = "Mężczyzna przeżywa wciąż ten sam dzień.",
                             Director = "Harold Ramis",
+                            Poster = "g23.jpg",
                             Price = 8.49m,
                             Title = "Groundhog Day"
                         },
@@ -331,6 +357,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 3,
                             Desc = "Antybohater o niewyparzonym języku szuka zemsty.",
                             Director = "Tim Miller",
+                            Poster = "g24.jpg",
                             Price = 10.99m,
                             Title = "Deadpool"
                         },
@@ -340,6 +367,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 3,
                             Desc = "Seria katastrof podczas organizacji ślubu przyjaciółki.",
                             Director = "Paul Feig",
+                            Poster = "g25.jpg",
                             Price = 9.49m,
                             Title = "Bridesmaids"
                         },
@@ -347,8 +375,9 @@ namespace SklepSDKW_EF.Migrations
                         {
                             Id = 26,
                             CategoryId = 3,
-                            Desc = "Nieśmiały mężczyzna odkrywa magiczną maskę.",
+                            Desc = "Nieśmiały mężczyzna odkrywa magicczną maskę.",
                             Director = "Chuck Russell",
+                            Poster = "g26.jpg",
                             Price = 7.49m,
                             Title = "The Mask"
                         },
@@ -358,6 +387,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 3,
                             Desc = "Chłopiec sam broni domu przed złodziejami.",
                             Director = "Chris Columbus",
+                            Poster = "g27.jpg",
                             Price = 8.99m,
                             Title = "Home Alone"
                         },
@@ -367,6 +397,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 3,
                             Desc = "Dwóch dorosłych mężczyzn musi nauczyć się wspólnego życia.",
                             Director = "Adam McKay",
+                            Poster = "g28.jpg",
                             Price = 7.79m,
                             Title = "Step Brothers"
                         },
@@ -376,6 +407,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 3,
                             Desc = "Mężczyzna zaczyna mówić 'tak' każdej propozycji.",
                             Director = "Peyton Reed",
+                            Poster = "g29.jpg",
                             Price = 8.29m,
                             Title = "Yes Man"
                         },
@@ -385,6 +417,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 3,
                             Desc = "Barwna opowieść o concierge'u i jego przygodach.",
                             Director = "Wes Anderson",
+                            Poster = "g30.jpg",
                             Price = 9.99m,
                             Title = "The Grand Budapest Hotel"
                         },
@@ -394,6 +427,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 4,
                             Desc = "Historia przyjaźni i nadziei w więzieniu.",
                             Director = "Frank Darabont",
+                            Poster = "g31.jpg",
                             Price = 10.99m,
                             Title = "The Shawshank Redemption"
                         },
@@ -403,6 +437,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 4,
                             Desc = "Niezwykłe życie prostolinijnego mężczyzny.",
                             Director = "Robert Zemeckis",
+                            Poster = "g32.jpg",
                             Price = 9.99m,
                             Title = "Forrest Gump"
                         },
@@ -412,6 +447,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 4,
                             Desc = "Nadzwyczajne wydarzenia w celi śmierci.",
                             Director = "Frank Darabont",
+                            Poster = "g33.webp",
                             Price = 10.49m,
                             Title = "The Green Mile"
                         },
@@ -421,6 +457,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 4,
                             Desc = "Biografia genialnego matematyka zmagającego się z chorobą.",
                             Director = "Ron Howard",
+                            Poster = "g34.jpg",
                             Price = 9.49m,
                             Title = "A Beautiful Mind"
                         },
@@ -430,6 +467,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 4,
                             Desc = "Mężczyzna tworzy podziemny klub walki.",
                             Director = "David Fincher",
+                            Poster = "g35.webp",
                             Price = 11.49m,
                             Title = "Fight Club"
                         },
@@ -439,6 +477,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 4,
                             Desc = "Ojciec walczy o lepsze życie dla syna.",
                             Director = "Gabriele Muccino",
+                            Poster = "g36.avif",
                             Price = 9.29m,
                             Title = "The Pursuit of Happyness"
                         },
@@ -448,6 +487,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 4,
                             Desc = "Rzymski generał szuka zemsty jako gladiator.",
                             Director = "Ridley Scott",
+                            Poster = "g37.jpg",
                             Price = 10.99m,
                             Title = "Gladiator"
                         },
@@ -457,6 +497,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 4,
                             Desc = "Historia pianisty w czasie II wojny światowej.",
                             Director = "Roman Polanski",
+                            Poster = "g38.jpg",
                             Price = 10.49m,
                             Title = "The Pianist"
                         },
@@ -466,6 +507,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 4,
                             Desc = "Portret psychologiczny przyszłego przestępcy.",
                             Director = "Todd Phillips",
+                            Poster = "g39.jpg",
                             Price = 12.49m,
                             Title = "Joker"
                         },
@@ -475,6 +517,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 4,
                             Desc = "Student perkusji pod presją bezwzględnego nauczyciela.",
                             Director = "Damien Chazelle",
+                            Poster = "g40.jpg",
                             Price = 9.99m,
                             Title = "Whiplash"
                         },
@@ -484,6 +527,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 5,
                             Desc = "Pościg przez postapokaliptyczne pustkowia.",
                             Director = "George Miller",
+                            Poster = "g41.jpg",
                             Price = 11.99m,
                             Title = "Mad Max: Fury Road"
                         },
@@ -493,6 +537,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 5,
                             Desc = "Były zabójca wraca do świata przestępczego.",
                             Director = "Chad Stahelski",
+                            Poster = "g42.jpg",
                             Price = 10.99m,
                             Title = "John Wick"
                         },
@@ -502,6 +547,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 5,
                             Desc = "Policjant samotnie walczy z terrorystami.",
                             Director = "John McTiernan",
+                            Poster = "g43.jpg",
                             Price = 9.49m,
                             Title = "Die Hard"
                         },
@@ -511,6 +557,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 5,
                             Desc = "Batman staje do walki z Jokerem.",
                             Director = "Christopher Nolan",
+                            Poster = "g44.jpg",
                             Price = 12.99m,
                             Title = "The Dark Knight"
                         },
@@ -520,6 +567,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 5,
                             Desc = "Superbohaterowie łączą siły przeciw zagrożeniu.",
                             Director = "Joss Whedon",
+                            Poster = "g45.jpg",
                             Price = 11.49m,
                             Title = "The Avengers"
                         },
@@ -529,6 +577,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 5,
                             Desc = "Agent Ethan Hunt wykonuje kolejną niebezpieczną misję.",
                             Director = "Christopher McQuarrie",
+                            Poster = "g46.jpg",
                             Price = 12.49m,
                             Title = "Mission: Impossible – Fallout"
                         },
@@ -538,6 +587,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 5,
                             Desc = "James Bond rozpoczyna swoją służbę jako agent 007.",
                             Director = "Martin Campbell",
+                            Poster = "g47.jpg",
                             Price = 10.99m,
                             Title = "Casino Royale"
                         },
@@ -547,8 +597,9 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 5,
                             Desc = "Spektakularne walki na arenie starożytnego Rzymu.",
                             Director = "Ridley Scott",
+                            Poster = "g48.jpg",
                             Price = 10.99m,
-                            Title = "Gladiator"
+                            Title = "Gladiator 2"
                         },
                         new
                         {
@@ -556,6 +607,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 5,
                             Desc = "Mężczyzna bez pamięci odkrywa, że jest wyszkolonym agentem.",
                             Director = "Doug Liman",
+                            Poster = "g49.jpg",
                             Price = 9.99m,
                             Title = "The Bourne Identity"
                         },
@@ -565,6 +617,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 5,
                             Desc = "Bitwa Spartan przeciwko perskiej armii.",
                             Director = "Zack Snyder",
+                            Poster = "g50.jpg",
                             Price = 10.49m,
                             Title = "300"
                         },
@@ -574,6 +627,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 6,
                             Desc = "Zabawki ożywają pod nieobecność właściciela.",
                             Director = "John Lasseter",
+                            Poster = "g51.jpg",
                             Price = 8.99m,
                             Title = "Toy Story"
                         },
@@ -583,6 +637,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 6,
                             Desc = "Młody lew walczy o swoje miejsce w królestwie.",
                             Director = "Roger Allers",
+                            Poster = "g52.jpg",
                             Price = 9.99m,
                             Title = "The Lion King"
                         },
@@ -592,6 +647,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 6,
                             Desc = "Siostrzana miłość w magicznym królestwie.",
                             Director = "Chris Buck",
+                            Poster = "g53.jpg",
                             Price = 9.49m,
                             Title = "Frozen"
                         },
@@ -601,6 +657,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 6,
                             Desc = "Ogr wyrusza na misję ratowania księżniczki.",
                             Director = "Andrew Adamson",
+                            Poster = "g54.jpg",
                             Price = 8.49m,
                             Title = "Shrek"
                         },
@@ -610,6 +667,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 6,
                             Desc = "Ojciec przemierza ocean w poszukiwaniu syna.",
                             Director = "Andrew Stanton",
+                            Poster = "g55.jpg",
                             Price = 9.29m,
                             Title = "Finding Nemo"
                         },
@@ -619,6 +677,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 6,
                             Desc = "Staruszek wyrusza w podróż domu unoszącego się na balonach.",
                             Director = "Pete Docter",
+                            Poster = "g56.jpg",
                             Price = 9.99m,
                             Title = "Up"
                         },
@@ -628,6 +687,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 6,
                             Desc = "Chłopiec odkrywa tajemnice przodków w świecie zmarłych.",
                             Director = "Lee Unkrich",
+                            Poster = "g57.jpg",
                             Price = 10.49m,
                             Title = "Coco"
                         },
@@ -637,6 +697,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 6,
                             Desc = "Emocje sterują życiem dziewczynki.",
                             Director = "Pete Docter",
+                            Poster = "g58.jpg",
                             Price = 9.79m,
                             Title = "Inside Out"
                         },
@@ -646,6 +707,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 6,
                             Desc = "Policyjna intryga w mieście zamieszkanym przez zwierzęta.",
                             Director = "Byron Howard",
+                            Poster = "g59.jpg",
                             Price = 10.29m,
                             Title = "Zootopia"
                         },
@@ -655,6 +717,7 @@ namespace SklepSDKW_EF.Migrations
                             CategoryId = 6,
                             Desc = "Dziewczynka trafia do magicznego świata duchów.",
                             Director = "Hayao Miyazaki",
+                            Poster = "g60.jpg",
                             Price = 11.49m,
                             Title = "Spirited Away"
                         });

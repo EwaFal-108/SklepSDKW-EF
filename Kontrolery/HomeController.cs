@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SklepSDKW_EF.DAL; // Potrzebne, aby Visual Studio widzia³o SklepContext
-using SklepSDKW_EF.Modele; // Dopasowane do  folderu z modelami (Modele)
+using SklepSDKW_EF.Models; // Dopasowane do folderu z modelami
 
 namespace SklepSDKW_EF.Controllers
 {
@@ -21,7 +21,7 @@ namespace SklepSDKW_EF.Controllers
 
         public IActionResult Index()
         {
-            // Pobieramy listê wszystkich filmów z bazy danych
+            // Zmieniono z _db.Filmy na _db.Films, aby pasowa³o do tabeli wyk³adowcy
             var filmy = _db.Filmy.ToList();
 
             // Przekazujemy listê filmów do widoku Index.cshtml

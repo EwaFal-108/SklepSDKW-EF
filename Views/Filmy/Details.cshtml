@@ -1,31 +1,25 @@
-﻿@model SklepSDKW_EF.Modele.Film
+﻿@model SklepSDKW_EF.Models.Film
 
-@{
-    ViewData["Title"] = "Szczegóły filmu";
-}
+<div class="films-details">
+    <table>
+        <tr>
+            <td>
+                <h1>@Model.Category.Name</h1>
 
-<h1>Szczegóły</h1>
-
-<div>
-    <h4>Film: @Model.Title</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">Tytuł</dt>
-        <dd class="col-sm-10">@Model.Title</dd>
-
-        <dt class="col-sm-2">Reżyser</dt>
-        <dd class="col-sm-10">@Model.Director</dd>
-
-        <dt class="col-sm-2">Cena</dt>
-        <dd class="col-sm-10">@Model.Price?.ToString("C")</dd>
-
-        <dt class="col-sm-2">Kategoria</dt>
-        <dd class="col-sm-10">@Model.Category?.Name</dd>
-
-        <dt class="col-sm-2">Opis</dt>
-        <dd class="col-sm-10">@Model.Desc</dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Index" class="btn btn-secondary">Powrót do listy</a>
+                @(await Component.InvokeAsync("SideMenu", new { categoryId = Model.CategoryId }))
+            </td>
+            <td>
+                <img class="posters" src="~/content/grafiki/@Model.Poster" />
+            </td>
+            <td>
+                <ul>
+                    <li>Tytuł: @Model.Title</li>
+                    <li>Reżyser: @Model.Director</li>
+                    <li>Opis: @Model.Desc</li>
+                    <li>Cena: @Model.Price zł</li>
+                </ul>
+                <a style="margin: 1rem 2rem" class="btn btn-secondary" href="@Url.Action("AddToCart", "Cart", new { id = Model.Id })">Dodaj do koszyka</a>
+            </td>
+        </tr>
+    </table>
 </div>
